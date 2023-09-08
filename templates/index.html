@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% include 'todonav.html'%}
 
 {% block content %}
+{% include 'todonav.html'%}
 
 
 <div style="display: flex ; justify-content: center; align-items: center; height:100vh;">
@@ -10,11 +10,11 @@
             <div class="card-header">
               <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                  <a class={activeTab =="active"? "nav-link active" : "nav-link"} href="#">Active</a>
+                  <a class="nav-link" {activeTab =="active"? "nav-link active" : "nav-link"} href="#">Active</a>
                 </li>
                 <li class="nav-item">
                   {% comment %} <a class="nav-link" href="#">Link</a> {% endcomment %}
-                  <div class={activeTab =="link"? "nav-link active" : "nav-link"} onClick='setActiveTab("link")'>
+                  <div class="nav-link"{activeTab =="link"? "nav-link active" : "nav-link"} onClick='setActiveTab("link")'>
                     Link
                   </div>
                 </li>
