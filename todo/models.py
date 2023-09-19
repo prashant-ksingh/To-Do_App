@@ -1,21 +1,21 @@
 from django.db import models
 
 class User(models.Model):
-    id = models.CharField(max_length=25,unique=True)
+    # id = models.CharField(max_length=25,unique=True, primary = True)
+    userid = models.CharField(max_length=50,unique=True)
     name =models.CharField(max_length=50)
     email = models.CharField(max_length=50)
-    userid = models.CharField(max_length=50,unique=True)
-    password = models.CharField()
+    password = models.CharField(max_length=25)
 
 class Todo(models.Model):
     userid = models.ForeignKey(
         User, on_delete=models.CASCADE, null= True, blank= True
     )
-    id = models.CharField(max_length=25,unique=True)
+    # id = models.CharField(max_length=25,unique=True)
     taskname = models.CharField(max_length=64)
     description = models.CharField(max_length=200)
     added_date = models.DateTimeField()
-    deadline = models.DateTimeField()
+    deadline = models.DateTimeField(null=False)
     prior = models.BooleanField()
     iscompleated = models.BooleanField()
 
