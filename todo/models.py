@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 class User(models.Model):
     # id = models.CharField(max_length=25,unique=True, primary = True)
@@ -7,18 +8,21 @@ class User(models.Model):
     email = models.CharField(max_length=50)
     password = models.CharField(max_length=25)
 
+    def __str__(self):
+        return f"{self.userid}-{self.name}"
+
 class Todo(models.Model):
     userid = models.ForeignKey(
         User, on_delete=models.CASCADE, null= True, blank= True
     )
     # id = models.CharField(max_length=25,unique=True)
-    taskname = models.CharField(max_length=64)
-    description = models.CharField(max_length=200)
-    added_date = models.DateTimeField()
-    deadline = models.DateTimeField(null=False)
-    prior = models.BooleanField()
-    iscompleated = models.BooleanField()
+    taskname = models.CharField(max_length=64, null=True)
+    description = models.CharField(max_length=200, null=True)
+    added_date = models.DateTimeField(null=False, default=datetime.datetime.now())
+    deadline = models.DateTimeField(null=False, default=datetime.datetime.now())
+    prior = models.BooleanField(default=False)
+    iscompleted = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.taskname
+        return f"{self.userid}-{self.taskname}"
     

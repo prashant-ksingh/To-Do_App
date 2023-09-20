@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include 'todonav.html'%}
+
+
+<div style="display: flex ; justify-content: center; align-items: center; height:100vh;">
+    
+        <div class="card text-center" style=" width:50%">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                  <a class="nav-link" {activeTab =="active"? "nav-link active" : "nav-link"} href="#">Active</a>
+                </li>
+                <li class="nav-item">
+                  {% comment %} <a class="nav-link" href="#">Link</a> {% endcomment %}
+                  <div class="nav-link"{activeTab =="link"? "nav-link active" : "nav-link"} onClick='setActiveTab("link")'>
+                    Link
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Disabled</a>
+                </li>
+              </ul>
+            </div>
+            <div class="card" style="width: 100%;">
+                <ul class="list-group list-group-flush">
+                  <li class="text-left list-group-item">Cras justo odio 
+                    <a href="#" class="btn btn-primary float-right" style="margin-left:2px">Go somewhere</a>
+                    <a href="#" class="btn btn-primary float-right" style="margin-left:2px">Go somewhere</a>
+                  </li>
+                </ul>
+              </div>
+            <div class="card-body">
+              <h5 class="card-title">Clear All</h5>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div> 
+    
+</div>
+
+{% endblock %}
+
+{% block script %} 
+<script>
+let activeTab = "active"
+
+const setActiveTab=(tabName)=> {
+    activeTab = tabName
+    console.log("gasghfsahg")
+    return(activeTab)
+}
+</script>
+{% endblock %}
