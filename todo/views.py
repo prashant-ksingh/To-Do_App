@@ -1,25 +1,40 @@
 from django.shortcuts import render
-from todo import forms
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
+from todo.models import Todo
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect
+
+
 
 def home(request):
-    #  if request.method == 'POST':
-
-    #     if(request.name == 'login'):
-    #        return render(request, 'login.html')
-        
-    #     if(request.name == 'signup'):
-    #        return render(request, 'signup.html') 
-    #  else: 
         return render(request, 'home.html')
-@csrf_exempt
+
+
+
 def add_task(request):
-    print("add task called")
-    print(request.POST)
-    return render(request, 'addtask.html')
+    if request.method == 'POST':
+ 
+        task_name = request.POST.get('name')
+        task_desc = request.POST.get('desc')
+        
+        Todo.objects.create(
+            taskname=task_name,
+            description=task_desc
+        )
+        
+        return redirect('show_task')
+
+
+def show_task(request):
+    all_task = Todo.objects.all()
+    return render(request, 'addtask.html', {
+        "all_task": all_task
+    })
 
 def login(request):
     return render(request, 'login.html')
+
 
 def logout(request):
     return render(request, '')
@@ -27,5 +42,11 @@ def logout(request):
 def signup(request):
     return render(request, 'signup.html')
 
-def test(request):
-    return render(request, 'addtask.html')
+
+
+def delete_task(request, id):
+    task = get_object_or_404(Todo, id=id)
+    task.delete()
+    return redirect('show_task')
+
+     
