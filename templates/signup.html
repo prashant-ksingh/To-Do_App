@@ -7,55 +7,24 @@
     <div class="card w-50 ">
         <div class="card-body">
           <h5 class="card-title justify-content-center">Your Sign-in for To-Do</h5>
-          <form style="border:2px grey solid; border-radius:10px; padding:20px" >
-            <div class="form-row">
-              <div class="form-group">
-                <label for="inputAddress">User Name</label>
-                <input type="text" class="form-control" id="Username" placeholder="Bob">
-              </div>
-             
-            </div>
-            <div>
+          <form style="border:2px rgb(185, 181, 181) solid; border-radius:10px; padding:20px" action="{% url 'signup' %}" method="POST">
+            {% csrf_token %}
+            <div class="">
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                  <label for="inputAddress">User Name</label>
+                  <input type="text" name="user_name" class="form-control" id="Username" placeholder="Bob">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" name="user_email" class="form-control" id="inputEmail4" placeholder="Email">
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="inputPassword4">Password</label>
-                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" name="user_password" class="form-control" id="inputPassword4" placeholder="Password">
                   </div>
-            </div>
-            <!-- <div class="form-group">
-              <label for="inputAddress2">Address</label>
-              <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity">
-              </div>
-              <div class="form-group col-md-4">
-                <label for="inputState">State</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-              <div class="form-group col-md-2">
-                <label for="inputZip">Zip</label>
-                <input type="text" class="form-control" id="inputZip">
-              </div>
-            </div> -->
-            <!-- <div class="form-group">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                  Sign me in
-                </label>
-              </div> -->
+             </div>
               <p>already a user <a href="login">login</a></p>
             </div>
-
             <button type="submit" class="btn btn-primary">Sign in</button>
           </form>
         </div>
