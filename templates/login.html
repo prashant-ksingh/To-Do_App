@@ -9,14 +9,15 @@
   <div class="card w-50 ">
       <div class="card-body">
         <h5 class="card-title align-items-center">Your To-Do Login</h5>
-        <form>
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
               <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+              <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
               </div>
               <div class="form-group">
               <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+              <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
               </div>
               <!-- <div class="form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -24,9 +25,8 @@
               </div> -->
 
               <p>Don't have an account <a href="signup">Sign up</a></p>
-              
+               <button type="submit" class="btn btn-primary">Login</button>
          </form>
-        <a href="#" class="btn btn-primary">Login</a>
       </div>
     </div>
   </div>

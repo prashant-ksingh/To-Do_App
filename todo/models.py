@@ -7,7 +7,7 @@ class User(models.Model):
     password = models.CharField(max_length=25)
 
     def __str__(self):
-        return f"{self.userid}-{self.name}"
+        return f"{self.name}"
 
 class Todo(models.Model):
 
