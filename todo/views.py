@@ -5,7 +5,7 @@ import hashlib
 from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login, logout
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
 
 
@@ -58,18 +58,34 @@ def login(request):
          password = request.POST.get('password')
 
          print("$$$$$$$$$$$", username, password)
+
+         if not User.objects.filter( username = username).exists():
+              messages.error(request, 'Invalid username')
+              return redirect('login')
+         
+         user = authenticate(username = username, password = password)
+         if user is None:
+              messages.error(request, 'Invalid password')
+              return redirect('login')
+         else:
+              auth_login(request, user)
+              return redirect('show_task')
+         
+         
     return render(request, 'login.html')
 
 
 
 def logout(request):
-    return render(request, '')
+    auth_logout(request)
+    return redirect('home')
 
 @login_required()
 def show_task(request):
+
     all_task = Todo.objects.all()
     return render(request, 'addtask.html', {
-        "all_task": all_task
+        "all_task": tasks
     })
 
 def add_task(request):

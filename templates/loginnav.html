@@ -7,5 +7,12 @@
         <div class="navbar-nav">
         <a class="nav-item nav-link" href="#">Features</a>
         </div>
+        <div class="float-right">
+            <form action="{% url 'logout' %}" class="float-right" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        </div>
+        <form action="" class="d-flex"></form>
     </div>
 </nav>
