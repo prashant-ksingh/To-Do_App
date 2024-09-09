@@ -7,6 +7,17 @@
     <div class="card w-50 ">
         <div class="card-body">
           <h5 class="card-title justify-content-center">Your Sign-in for To-Do</h5>
+          {% if messages %}
+
+          <div class="alert alert-primary" role="alert">
+            {% for message in messages %}
+            {{ message}}  
+            {% endfor %}
+          </div>
+          <ul class="messages">
+            <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+          </ul>   
+          {% endif %}
           <form style="border:2px rgb(185, 181, 181) solid; border-radius:10px; padding:20px" action="{% url 'signup' %}" method="POST">
             {% csrf_token %}
             <div class="">
