@@ -1,9 +1,7 @@
 from django.shortcuts import render
 from todo.models import Todo
 from django.shortcuts import redirect,get_object_or_404
-import hashlib
 from django.contrib.auth.decorators import login_required
-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
@@ -21,10 +19,6 @@ def signup(request):
          user_name = request.POST.get('user_name')
          user_email = request.POST.get('user_email')
          user_password = request.POST.get('user_password')
-
-        #  md5_hash = hashlib.md5()
-        #  md5_hash.update(user_password.encode('utf-8'))
-        #  password = md5_hash.hexdigest()
 
          user = User.objects.filter(username = user_name)
          if user:
@@ -51,7 +45,6 @@ def signup(request):
 def sucess(request):
         return render(request, 'sucessful.html')
 
-
 def login(request):
     if request.method == "POST":
          username = request.POST.get('user_name')
@@ -74,16 +67,17 @@ def login(request):
          
     return render(request, 'login.html')
 
-
-
 def logout(request):
     auth_logout(request)
     return redirect('home')
 
 @login_required()
 def show_task(request):
+    user = request.user
+    tasks = Todo.objects.filter(id=user.id)
 
-    all_task = Todo.objects.all()
+    # all_task = Todo.objects.all()
+    
     return render(request, 'addtask.html', {
         "all_task": tasks
     })
@@ -100,7 +94,6 @@ def add_task(request):
         )
         
         return redirect('show_task')
-
 
 def delete_task(request, id):
     task = get_object_or_404(Todo, id=id)
