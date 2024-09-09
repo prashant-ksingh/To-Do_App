@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from todo.models import Todo, User
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect,get_object_or_404
 import hashlib
 from django.contrib.auth.hashers import make_password,check_password
+from django.contrib.auth.decorators import login_required
+
+from django.contrib import messages
+from django.contrib.auth import authenticate, login as auth_login, logout
 
 
 
@@ -44,27 +48,48 @@ def sucess(request):
         return render(request, 'sucessful.html')
 
 
+# def login(request):
+#     if request.method == 'POST':
+#         provided_email = request.POST.get('email')
+#         provided_password = request.POST.get('password')
+        
+#         # user_obj = User.objects.all()
+#         try:
+#             auth_obj = User.objects.get(email = provided_email)
+#             print(auth_obj.name)
+#             print(auth_obj.email)
+#             print(auth_obj.password)
+
+#             is_authenticated = check_password(provided_password, auth_obj.password)
+
+#             # is_authenticated = authenticate(email = provided_email, password = auth_obj.password )
+
+
+#             if is_authenticated:
+#                 print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$User authenticated successfully")
+#                 return redirect('show_task')
+#             else:
+#                 print("Authentication failed")
+#         except:
+#              print("66666666666666666666666666 No user found")
+    
+#     return render(request, 'login.html')
+
+
 def login(request):
     if request.method == 'POST':
         provided_email = request.POST.get('email')
         provided_password = request.POST.get('password')
+        
+        user = authenticate(request, email=provided_email, password=provided_password)
 
-        user_obj = User.objects.get(provided_email)
-
-        if user_obj:
-         print("#########", user_obj)
+        print("^^^^^^^^^^^^^", user)
+        if user is not None:
+            auth_login(request, user)  
+            print("User authenticated successfully")
+            return redirect('show_task')
         else:
-             print("@@@@@@@@@@@")
-
-        # # stored_hashed_password = get_stored_password_for_user(username)
-        # stored_hashed_password = get_user_by_email(provided_email)
-
-        # is_authenticated = check_password(provided_password, stored_hashed_password)
-
-        # if is_authenticated:
-        #     print("User authenticated successfully")
-        # else:
-        #     print("Authentication failed")
+            print("Authentication failed")
     
     return render(request, 'login.html')
 
@@ -72,6 +97,7 @@ def login(request):
 def logout(request):
     return render(request, '')
 
+@login_required()
 def show_task(request):
     all_task = Todo.objects.all()
     return render(request, 'addtask.html', {
