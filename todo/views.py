@@ -50,7 +50,7 @@ def login(request):
          username = request.POST.get('user_name')
          password = request.POST.get('password')
 
-         print("$$$$$$$$$$$", username, password)
+        #  print("$$$$$$$$$$$", username, password)
 
          if not User.objects.filter( username = username).exists():
               messages.error(request, 'Invalid username')
@@ -76,8 +76,6 @@ def show_task(request):
     user = request.user
     tasks = Todo.objects.filter(id=user.id)
 
-    # all_task = Todo.objects.all()
-    
     return render(request, 'addtask.html', {
         "all_task": tasks
     })
